@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mohammad Nooruddin</title>
+<meta name="description" content="PhD candidate in Computer Science at Texas State University, working on GPU performance for irregular workloads.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdfdfc; --fg:#1c1c1a; --muted:#6b6b66; --line:#e4e4df;
+  --accent:#8a5a2b; --card:#f7f7f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#16161a; --fg:#e8e8e4; --muted:#9a9a94; --line:#2c2c32;
+    --accent:#d4a06a; --card:#1d1d22;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16161a; --fg:#e8e8e4; --muted:#9a9a94; --line:#2c2c32;
+  --accent:#d4a06a; --card:#1d1d22;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:400 17px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav{
+  position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)
+}
+nav .wrap{display:flex;gap:22px;align-items:center;height:54px;font-size:15px;overflow-x:auto}
+nav a{color:var(--muted);white-space:nowrap}
+nav a:hover{color:var(--fg);text-decoration:none}
+nav .nm{font-weight:600;color:var(--fg);margin-right:auto}
+
+header{padding:56px 0 40px}
+.top{display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+.top img{width:132px;height:132px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--line)}
+h1{font:600 33px/1.15 "Source Serif 4",Georgia,serif;margin:0 0 6px}
+.role{color:var(--muted);font-size:16.5px;margin:0 0 12px}
+.links{display:flex;gap:16px;flex-wrap:wrap;font-size:15px}
+
+section{padding:34px 0;border-top:1px solid var(--line)}
+h2{font:600 15px/1 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 20px}
+h3{font:600 18px/1.35 "Source Serif 4",Georgia,serif;margin:0 0 4px}
+p{margin:0 0 15px}
+.meta{color:var(--muted);font-size:14.5px;margin:0 0 8px}
+.item{margin-bottom:26px}
+.item:last-child{margin-bottom:0}
+ul{margin:8px 0 0;padding-left:19px}
+li{margin-bottom:7px}
+.pub{margin-bottom:15px;font-size:16px}
+.pub .v{color:var(--muted);font-size:14.5px}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--muted);
+  font-size:12.5px;padding:1px 8px;border-radius:20px;margin-left:5px;vertical-align:1px}
+.ed{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ed:last-child{border-bottom:0}
+.ed>span{color:var(--muted);font-size:14.5px;white-space:nowrap}
+.ed>div{min-width:0;flex:1 1 260px}
+footer{padding:30px 0 50px;color:var(--muted);font-size:14.5px;border-top:1px solid var(--line)}
+@media(max-width:560px){
+  nav .nm{display:none}
+  nav .wrap{gap:18px;font-size:14.5px;justify-content:space-between}
+  header{padding:38px 0 30px}
+  h1{font-size:28px}
+  .top img{width:104px;height:104px}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="#" class="nm">Mohammad Nooruddin</a>
+  <a href="#research">Research</a>
+  <a href="#publications">Publications</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="top">
+    <img src="headshot.jpg" alt="Mohammad Nooruddin">
+    <div>
+      <h1>Mohammad Nooruddin</h1>
+      <p class="role">PhD Candidate, Computer Science<br>Texas State University, San Marcos, TX</p>
+      <div class="links">
+        <a href="mailto:m.nooruddin58@txstate.edu">Email</a>
+        <a href="https://github.com/emonnmoz011">GitHub</a>
+        <a href="https://www.linkedin.com/in/mohammad-nooruddin-037b54169/">LinkedIn</a>
+        <a href="cv.pdf">CV</a>
+      </div>
+    </div>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <h2>About</h2>
+  <p>I am a PhD candidate in Computer Science at Texas State University, where I work as a Doctoral Research
+  Assistant. My research is on GPU performance for irregular workloads, mainly graph analytics.</p>
+  <p>Part of my work is CUDA kernel optimization, rewriting graph traversal kernels with warp-level primitives
+  and profiling-driven tuning. The other part looks at GPU partitioning: measuring how small a slice of a GPU a
+  graph workload can run on before performance drops, so one card can serve several jobs at once.</p>
+  <p>Before the PhD I completed an MS in Electrical Engineering at Texas State and worked as an IoT Specialist
+  in Dhaka. I program mainly in C/C++, CUDA and Python, and I use Nsight Systems, Nsight Compute and VTune for
+  performance analysis.</p>
+</div></section>
+
+<section id="research"><div class="wrap">
+  <h2>Research</h2>
+
+  <div class="item">
+    <h3>GPU right-sizing for irregular workloads</h3>
+    <p class="meta">Dissertation work, in progress</p>
+    <p>Most graph workloads do not need a whole GPU. I time cuGraph BFS, PageRank and SCC across the full GPU
+    and the MIG partitions of an A100 80GB, over a corpus of more than 1,200 graphs, and look for the smallest
+    partition that still runs the job at close to full speed.</p>
+    <ul>
+      <li>A placement rule that trades speed against utilization keeps most of the full-GPU BFS performance
+      while using roughly a quarter of the card.</li>
+      <li>A tree-ensemble model predicts the right partition from static structural features of a graph alone,
+      such as degree distribution, diameter, triangle counts and spectral properties, so a job can be placed
+      without profiling it first.</li>
+      <li>Full hardware-counter profiling was impractical per graph, so I built a sampled two-pass method that
+      recovers utilization within a small error at a fraction of the cost.</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <h3>Warp-level optimization of CUDA graph kernels</h3>
+    <p>I re-engineered published GPU graph kernels using warp-shuffle reductions, warp-aggregated atomics and
+    tuned launch configurations, then measured them across large benchmark suites.</p>
+    <ul>
+      <li>BFS and SSSP rewritten with warp-shuffle reductions, improving on roughly 95% of tested graphs
+      against the published baseline.</li>
+      <li>A Bor&#365;vka MST kernel reworked to pack edge weight and ID into a sortable 64-bit key for a
+      deterministic <code>atomicMin</code>, cutting global atomics to one lane per warp and replacing the
+      per-round edge rescan with an edge-to-source map. Throughput improved on roughly 90% of 1,244 graphs.</li>
+      <li>A connected-components kernel with warp-broadcast neighbour scanning and a virtual-warp width chosen
+      at runtime from average degree.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="publications"><div class="wrap">
+  <h2>Publications</h2>
+
+  <div class="pub">S. A. Zisan, <strong>M. Nooruddin</strong>, A. Qasem.
+    &ldquo;A Multi-Tiered Autotuner for Portable Heterogeneous-Compute Interfaces.&rdquo;
+    <span class="v">IEEE COMPSAC, 2025.</span></div>
+
+  <div class="pub"><strong>M. Nooruddin</strong>, D. Valles.
+    &ldquo;An Advanced IoT Framework for Long Range Connectivity and Secure Data Transmission Leveraging LoRa
+    and ASCON Encryption.&rdquo;
+    <span class="v">IEEE World AI IoT Congress, 2023.</span><span class="tag">Best Paper Award</span></div>
+
+  <div class="pub">A. S. B. Habib, K. T. Islam, M. M. H. Pranto, <strong>M. Nooruddin</strong>.
+    &ldquo;Breast Cancer Classification Using Ensemble Hard Voting with Random Under-Sampling.&rdquo;
+    <span class="v">IEEE ICECE, 2020.</span></div>
+
+  <div class="pub">A. S. Sajib, <strong>M. Nooruddin</strong>, K. T. Islam, S. Roy.
+    &ldquo;Finite Element Analysis of Thrombosis Considering Windkessel Effect.&rdquo;
+    <span class="v">IEEE EICT, 2019.</span></div>
+
+  <div class="pub">P. Deb, <strong>M. Nooruddin</strong>, M. S. Badsha.
+    &ldquo;Detection of Abnormal Electrocardiogram (ECG) Using Wavelet Decomposition and Support Vector
+    Machine.&rdquo; <span class="v">IEEE ICASERT, 2019.</span></div>
+
+  <div class="pub"><strong>M. Nooruddin</strong>, M. Rahman.
+    &ldquo;Improved 3D Reconstruction for Images having Moving Object using Semantic Image Segmentation and
+    Binary Masking.&rdquo; <span class="v">IEEE iCEEiCT, 2018.</span></div>
+
+  <h2 style="margin-top:30px">Awards and Certification</h2>
+  <div class="ed"><div>Best Paper Award, IoT Security &mdash; IEEE World AI IoT Congress</div><span>2023</span></div>
+  <div class="ed"><div>Thesis Research Support Fellowship, Graduate College, Texas State</div><span>2022</span></div>
+  <div class="ed"><div>Graduate College Scholarship, Texas State</div><span>2021</span></div>
+  <div class="ed"><div>NVIDIA-Certified Associate: AI Infrastructure and Operations (NCA-AIIO)</div><span>2026</span></div>
+</div></section>
+
+<section id="experience"><div class="wrap">
+  <h2>Experience</h2>
+
+  <div class="item">
+    <h3>Technology Innovation Summer Consultant</h3>
+    <p class="meta">Accenture, Next Gen Compute &middot; Summer 2026</p>
+    <p>Built an on-premises retrieval-augmented question answering system on a cluster of NVIDIA Blackwell
+    GPUs, covering document ingestion, hybrid retrieval and grounded answering with citations. Separately,
+    quantized a 32B language model to NVFP4 and measured around 2.5&times; the throughput on the same card with
+    accuracy unchanged within benchmark noise.</p>
+  </div>
+
+  <div class="item">
+    <h3>Doctoral Research Assistant</h3>
+    <p class="meta">Department of Computer Science, Texas State University &middot; Jun 2023 &ndash; Present</p>
+    <p>GPU performance research on irregular graph workloads, covering CUDA kernel optimization and GPU
+    partitioning, as described above.</p>
+  </div>
+
+  <div class="item">
+    <h3>Graduate Instructional Assistant</h3>
+    <p class="meta">Ingram School of Engineering, Texas State University &middot; Sep 2021 &ndash; May 2023</p>
+    <p>Ran laboratory sections, supported students with Linux and C/C++ environments, and taught parallel
+    computing fundamentals.</p>
+  </div>
+
+  <div class="item">
+    <h3>IoT Specialist</h3>
+    <p class="meta">Robi Axiata Limited, Dhaka, Bangladesh &middot; Dec 2020 &ndash; Jul 2021</p>
+    <p>Designed and launched a multi-sensor smart-elevator prototype on an ATmega8 microcontroller with cloud
+    telemetry, deployed for occupancy safety during COVID-19.</p>
+  </div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <h2>Projects</h2>
+
+  <div class="item">
+    <h3>Parallel algorithms on GPU clusters</h3>
+    <p>Converted serial algorithms into MPI, pthreads, OpenMP, CUDA, multi-GPU and hybrid implementations, and
+    measured them on GPU cluster nodes through Slurm. A persistent-thread minimum reduction reached about
+    24.6&times; over a single-threaded CPU baseline, and a GPU counting sort ran roughly 102&times; to 136&times;
+    faster than <code>std::sort</code> across the sizes tested.</p>
+  </div>
+
+  <div class="item">
+    <h3>Pop-CCL: popularity-adaptive long-tail recommendation</h3>
+    <p>Extended the SimpleX collaborative filtering model with a popularity-adaptive Cosine Contrastive Loss,
+    raising Recall@20 for tail items by up to 56% on Yelp18, Amazon-Books and Gowalla with minimal change to
+    the implementation.</p>
+  </div>
+
+  <div class="item">
+    <h3>Privacy-preserving federated learning</h3>
+    <p>Implemented federated learning with Paillier homomorphic encryption on CIFAR-100 using the AIJack
+    framework, keeping client updates encrypted through aggregation.</p>
+  </div>
+
+  <div class="item">
+    <h3>Parallel dead-block analysis for C compilers</h3>
+    <p>Sped up dead-block detection with dynamic load balancing and parallel execution across GCC and LLVM
+    builds at varied optimization levels, using Csmith for code generation and program markers for
+    instrumentation.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Education</h2>
+  <div class="ed"><div><strong>PhD, Computer Science</strong><br>Texas State University</div><span>Expected 2027</span></div>
+  <div class="ed"><div><strong>MS, Electrical Engineering</strong><br>Texas State University<br>
+    <span style="font-size:14.5px">Thesis: ASCON and ECDH lightweight cryptography on microcontrollers over LoRa</span>
+    </div><span>2023</span></div>
+  <div class="ed"><div><strong>BSc, Electronics and Communication Engineering</strong><br>
+    Khulna University of Engineering &amp; Technology</div><span>2018</span></div>
+</div></section>
+
+<footer><div class="wrap">
+  <p style="margin:0">Mohammad Nooruddin &middot; San Marcos, TX &middot;
+  <a href="mailto:m.nooruddin58@txstate.edu">m.nooruddin58@txstate.edu</a></p>
+</div></footer>
+
+</body>
+</html>
