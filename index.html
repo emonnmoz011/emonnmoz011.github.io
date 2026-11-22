@@ -4,94 +4,139 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mohammad Nooruddin</title>
-<meta name="description" content="PhD candidate in Computer Science at Texas State University, working on GPU performance for irregular workloads.">
+<meta name="description" content="PhD candidate in Computer Science at Texas State University. GPU sharing and kernel optimization for irregular graph workloads.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#fdfdfc; --fg:#1c1c1a; --muted:#6b6b66; --line:#e4e4df;
-  --accent:#8a5a2b; --card:#f7f7f5;
+  --bg:#fcfcfb; --fg:#1a1a18; --mut:#70706a; --faint:#95958e;
+  --line:#e6e6e0; --rule:#d8d8d1; --acc:#2f5d8a; --chip:#f1f1ed;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#16161a; --fg:#e8e8e4; --muted:#9a9a94; --line:#2c2c32;
-    --accent:#d4a06a; --card:#1d1d22;
-  }
-}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141417; --fg:#e9e9e5; --mut:#9d9d96; --faint:#7e7e77;
+  --line:#28282e; --rule:#33333a; --acc:#7eaedb; --chip:#1e1e23;
+}}
 :root[data-theme="dark"]{
-  --bg:#16161a; --fg:#e8e8e4; --muted:#9a9a94; --line:#2c2c32;
-  --accent:#d4a06a; --card:#1d1d22;
+  --bg:#141417; --fg:#e9e9e5; --mut:#9d9d96; --faint:#7e7e77;
+  --line:#28282e; --rule:#33333a; --acc:#7eaedb; --chip:#1e1e23;
 }
 *{box-sizing:border-box}
-body{
-  margin:0; background:var(--bg); color:var(--fg);
-  font:400 17px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-  -webkit-font-smoothing:antialiased;
-}
-.wrap{max-width:760px;margin:0 auto;padding:0 20px}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:400 16.5px/1.68 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:2px}
+code{font:500 .88em/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  background:var(--chip);padding:1px 5px;border-radius:4px}
 
-nav{
-  position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);
-  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)
-}
-nav .wrap{display:flex;gap:22px;align-items:center;height:54px;font-size:15px;overflow-x:auto}
-nav a{color:var(--muted);white-space:nowrap}
-nav a:hover{color:var(--fg);text-decoration:none}
-nav .nm{font-weight:600;color:var(--fg);margin-right:auto}
+/* ---------- shell: sticky rail on desktop ---------- */
+.shell{max-width:1060px;margin:0 auto;padding:0 28px;display:grid;gap:56px;
+  grid-template-columns:168px minmax(0,1fr)}
+.rail{position:sticky;top:0;align-self:start;display:flex;
+  flex-direction:column;gap:3px;padding:96px 0 0}
+.rail a{color:var(--faint);font-size:14px;letter-spacing:.01em;padding:5px 0;
+  border-left:2px solid transparent;padding-left:12px;transition:.15s}
+.rail a:hover{color:var(--fg);text-decoration:none;border-left-color:var(--rule)}
+.main{padding:0 0 10px;min-width:0}
 
-header{padding:56px 0 40px}
-.top{display:flex;gap:30px;align-items:center;flex-wrap:wrap}
-.top img{width:132px;height:132px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--line)}
-h1{font:600 33px/1.15 "Source Serif 4",Georgia,serif;margin:0 0 6px}
-.role{color:var(--muted);font-size:16.5px;margin:0 0 12px}
-.links{display:flex;gap:16px;flex-wrap:wrap;font-size:15px}
+/* ---------- hero ---------- */
+.hero{padding:86px 0 10px}
+.hero-top{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.hero img{width:104px;height:104px;border-radius:50%;object-fit:cover;flex:none;
+  box-shadow:0 0 0 1px var(--line),0 6px 20px rgba(0,0,0,.09)}
+h1{font:500 35px/1.1 Newsreader,Georgia,serif;margin:0 0 7px;letter-spacing:-.012em}
+.sub{color:var(--mut);font-size:16px;margin:0}
+.sub b{color:var(--fg);font-weight:500}
+.links{display:flex;gap:7px;flex-wrap:wrap;margin-top:17px}
+.links a{font-size:14px;padding:5px 13px;border:1px solid var(--line);
+  border-radius:100px;color:var(--mut);transition:.15s;background:var(--bg)}
+.links a:hover{color:var(--acc);border-color:var(--acc);text-decoration:none}
+.lede{margin:30px 0 0;font-size:17.5px;line-height:1.66}
+.lede p{margin:0 0 15px}
+.lede p:last-child{margin:0}
 
-section{padding:34px 0;border-top:1px solid var(--line)}
-h2{font:600 15px/1 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 20px}
-h3{font:600 18px/1.35 "Source Serif 4",Georgia,serif;margin:0 0 4px}
-p{margin:0 0 15px}
-.meta{color:var(--muted);font-size:14.5px;margin:0 0 8px}
-.item{margin-bottom:26px}
-.item:last-child{margin-bottom:0}
-ul{margin:8px 0 0;padding-left:19px}
-li{margin-bottom:7px}
-.pub{margin-bottom:15px;font-size:16px}
-.pub .v{color:var(--muted);font-size:14.5px}
-.tag{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--muted);
-  font-size:12.5px;padding:1px 8px;border-radius:20px;margin-left:5px;vertical-align:1px}
-.ed{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.ed:last-child{border-bottom:0}
-.ed>span{color:var(--muted);font-size:14.5px;white-space:nowrap}
-.ed>div{min-width:0;flex:1 1 260px}
-footer{padding:30px 0 50px;color:var(--muted);font-size:14.5px;border-top:1px solid var(--line)}
-@media(max-width:560px){
-  nav .nm{display:none}
-  nav .wrap{gap:18px;font-size:14.5px;justify-content:space-between}
-  header{padding:38px 0 30px}
-  h1{font-size:28px}
-  .top img{width:104px;height:104px}
+/* ---------- sections ---------- */
+section{padding:46px 0 0;scroll-margin-top:26px}
+h2{font:600 12.5px/1 Inter,sans-serif;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 24px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+h3{font:500 20px/1.32 Newsreader,Georgia,serif;margin:0 0 3px;letter-spacing:-.005em}
+.note{color:var(--mut);font-size:14px;margin:0 0 11px}
+.note .live{color:var(--acc)}
+p{margin:0 0 14px}
+p:last-child{margin-bottom:0}
+
+/* research cards */
+.card{border-left:2px solid var(--line);padding:2px 0 2px 22px;margin-bottom:34px}
+.card:last-child{margin-bottom:0}
+.card:hover{border-left-color:var(--acc)}
+
+/* publications */
+.pub{display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;
+  padding:14px 0;border-bottom:1px solid var(--line)}
+.pub:last-of-type{border-bottom:0}
+.yr{color:var(--faint);font-size:14px;font-variant-numeric:tabular-nums;padding-top:2px}
+.pt{margin:0 0 4px;line-height:1.5}
+.au{color:var(--mut);font-size:14.5px}
+.au b{color:var(--fg);font-weight:600}
+.ven{color:var(--mut);font-size:14px;font-style:italic}
+.chip{display:inline-block;font-size:11.5px;font-style:normal;letter-spacing:.05em;
+  text-transform:uppercase;background:var(--chip);color:var(--mut);
+  padding:2px 8px;border-radius:4px;margin-left:7px;vertical-align:1.5px}
+.chip.win{color:var(--acc)}
+
+/* lists */
+.row{display:flex;justify-content:space-between;gap:18px;padding:11px 0;
+  border-bottom:1px solid var(--line);flex-wrap:wrap}
+.row:last-child{border-bottom:0}
+.row>div{flex:1 1 280px;min-width:0}
+.row>span{color:var(--faint);font-size:14px;white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.row .deg{font-weight:500}
+.row .sm{color:var(--mut);font-size:14.5px;display:block;margin-top:2px}
+
+footer{margin-top:52px;padding:22px 0 54px;border-top:1px solid var(--line);
+  color:var(--faint);font-size:14px;display:flex;justify-content:space-between;
+  gap:14px;flex-wrap:wrap}
+
+@media(max-width:860px){
+  .shell{grid-template-columns:1fr;gap:0;padding:0 22px;max-width:680px}
+  .rail{position:sticky;top:0;flex-direction:row;overflow-x:auto;
+    gap:19px;padding:13px 0;background:color-mix(in srgb,var(--bg) 93%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+    justify-content:flex-start;z-index:9;-webkit-overflow-scrolling:touch}
+  .rail a{border-left:0;padding:0;white-space:nowrap;font-size:14.5px}
+  .rail a:hover{border-left:0}
+  .hero{padding:40px 0 4px}
+  h1{font-size:30px}
+  .hero img{width:88px;height:88px}
+  .lede{font-size:16.5px}
+  .pub{grid-template-columns:1fr;gap:3px}
+  .yr{padding-top:0}
 }
 </style>
 </head>
 <body>
+<div class="shell">
 
-<nav><div class="wrap">
-  <a href="#" class="nm">Mohammad Nooruddin</a>
+<nav class="rail">
   <a href="#research">Research</a>
   <a href="#publications">Publications</a>
   <a href="#experience">Experience</a>
   <a href="#projects">Projects</a>
-</div></nav>
+  <a href="#education">Education</a>
+</nav>
 
-<header><div class="wrap">
-  <div class="top">
+<main class="main" id="top">
+
+<div class="hero">
+  <div class="hero-top">
     <img src="headshot.jpg" alt="Mohammad Nooruddin">
     <div>
       <h1>Mohammad Nooruddin</h1>
-      <p class="role">PhD Candidate, Computer Science<br>Texas State University, San Marcos, TX</p>
+      <p class="sub">PhD candidate, Computer Science<br>
+        <b>Texas State University</b>, San Marcos, Texas</p>
       <div class="links">
         <a href="mailto:m.nooruddin58@txstate.edu">Email</a>
         <a href="https://github.com/emonnmoz011">GitHub</a>
@@ -100,171 +145,202 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:14.5px;border-top:1px so
       </div>
     </div>
   </div>
-</div></header>
 
-<section><div class="wrap">
-  <h2>About</h2>
-  <p>I am a PhD candidate in Computer Science at Texas State University, where I work as a Doctoral Research
-  Assistant. My research is on GPU performance for irregular workloads, mainly graph analytics.</p>
-  <p>Part of my work is CUDA kernel optimization, rewriting graph traversal kernels with warp-level primitives
-  and profiling-driven tuning. The other part looks at GPU partitioning: measuring how small a slice of a GPU a
-  graph workload can run on before performance drops, so one card can serve several jobs at once.</p>
-  <p>Before the PhD I completed an MS in Electrical Engineering at Texas State and worked as an IoT Specialist
-  in Dhaka. I program mainly in C/C++, CUDA and Python, and I use Nsight Systems, Nsight Compute and VTune for
-  performance analysis.</p>
-</div></section>
+  <div class="lede">
+    <p>I work on how graph algorithms use GPUs, and on how much of a GPU they
+    actually need. A graph traversal rarely keeps a whole data-center GPU busy, and how
+    much of one it can use turns out to depend on the input graph rather than on the
+    program. My thesis work builds a scheduler that reads the graph and picks the GPU
+    partition from it.</p>
+    <p>The rest of my time goes to CUDA kernels. I rewrite published graph kernels with
+    warp-level primitives and measure what the change is worth across large sets of real
+    graphs. In the summer of 2026 I worked at Accenture on GPU inference infrastructure,
+    which was a useful change of scale after a year spent inside warp scheduling.</p>
+  </div>
+</div>
 
-<section id="research"><div class="wrap">
+<section id="research">
   <h2>Research</h2>
 
-  <div class="item">
-    <h3>GPU right-sizing for irregular workloads</h3>
-    <p class="meta">Dissertation work, in progress</p>
-    <p>Most graph workloads do not need a whole GPU. I time cuGraph BFS, PageRank and SCC across the full GPU
-    and the MIG partitions of an A100 80GB, over a corpus of more than 1,200 graphs, and look for the smallest
-    partition that still runs the job at close to full speed.</p>
-    <ul>
-      <li>A placement rule that trades speed against utilization keeps most of the full-GPU BFS performance
-      while using roughly a quarter of the card.</li>
-      <li>A tree-ensemble model predicts the right partition from static structural features of a graph alone,
-      such as degree distribution, diameter, triangle counts and spectral properties, so a job can be placed
-      without profiling it first.</li>
-      <li>Full hardware-counter profiling was impractical per graph, so I built a sampled two-pass method that
-      recovers utilization within a small error at a fraction of the cost.</li>
-    </ul>
+  <div class="card">
+    <h3>SliceFit: input-aware MIG slice selection</h3>
+    <p class="note">Submitted to <b>IPDPS 2027</b>. <span class="live">Under review.</span></p>
+    <p>NVIDIA's Multi-Instance GPU divides one GPU into isolated slices. Schedulers
+    normally choose a job's slice from an earlier profiling run, which treats the right
+    slice as a property of the program. For graph algorithms that assumption does not
+    hold, because the input graph decides how much parallel work the GPU is given.</p>
+    <p>I measured four cuGraph algorithms (BFS, single-source shortest path, PageRank and
+    betweenness centrality) on every MIG slice of two GPU generations, the A100 and the
+    H100, over a corpus of 1,234 real-world graphs. BFS runs faster on a three-sevenths
+    slice than on the largest one for 77 to 80% of graphs. Yet 88 to 97% of graphs with
+    more than ten million edges still need the largest slice, so no fixed rule serves
+    both.</p>
+    <p>SliceFit reads the graph file instead of profiling the job. It moves a job up one
+    slice only while the speed gained outweighs the GPU capacity given up, against a
+    threshold fitted per algorithm. A model trained once per algorithm predicts each step
+    from ten degree features, read in 0.39 ms, so a new job never needs a profiling run.
+    The median job stays as fast as it would be on the largest slice while 17 to 35% of
+    the GPU is freed for other work.</p>
   </div>
 
-  <div class="item">
+  <div class="card">
     <h3>Warp-level optimization of CUDA graph kernels</h3>
-    <p>I re-engineered published GPU graph kernels using warp-shuffle reductions, warp-aggregated atomics and
-    tuned launch configurations, then measured them across large benchmark suites.</p>
-    <ul>
-      <li>BFS and SSSP rewritten with warp-shuffle reductions, improving on roughly 95% of tested graphs
-      against the published baseline.</li>
-      <li>A Bor&#365;vka MST kernel reworked to pack edge weight and ID into a sortable 64-bit key for a
-      deterministic <code>atomicMin</code>, cutting global atomics to one lane per warp and replacing the
-      per-round edge rescan with an edge-to-source map. Throughput improved on roughly 90% of 1,244 graphs.</li>
-      <li>A connected-components kernel with warp-broadcast neighbour scanning and a virtual-warp width chosen
-      at runtime from average degree.</li>
-    </ul>
+    <p>Graph kernels lose much of their time to atomic contention and to rescanning edges
+    that have not changed. I reworked several published GPU kernels to cut both, and
+    measured each change across large graph suites rather than on a handful of inputs.</p>
+    <p>BFS and SSSP from LonestarGPU, rewritten with warp-shuffle reductions and retuned
+    launch parameters, improved on roughly 95% of the graphs I tested. For a Bor&#365;vka
+    minimum spanning tree kernel I packed edge weight and edge ID into a single sortable
+    64-bit key, which turns the best-edge choice into one deterministic
+    <code>atomicMin</code>, cut the global atomics to one lane per warp with
+    <code>__shfl_down_sync</code>, and replaced the per-round edge rescan with an
+    edge-to-source map. Throughput improved on about 90% of 1,244 graphs.</p>
   </div>
-</div></section>
+</section>
 
-<section id="publications"><div class="wrap">
+<section id="publications">
   <h2>Publications</h2>
 
-  <div class="pub">S. A. Zisan, <strong>M. Nooruddin</strong>, A. Qasem.
-    &ldquo;A Multi-Tiered Autotuner for Portable Heterogeneous-Compute Interfaces.&rdquo;
-    <span class="v">IEEE COMPSAC, 2025.</span></div>
+  <div class="pub"><div class="yr">2027</div><div>
+    <p class="pt">SliceFit: Input-Aware MIG Slicing for Irregular Graph Workloads</p>
+    <div class="au">With A. Qasem</div>
+    <div class="ven">Submitted to IEEE IPDPS<span class="chip">Under review</span></div>
+  </div></div>
 
-  <div class="pub"><strong>M. Nooruddin</strong>, D. Valles.
-    &ldquo;An Advanced IoT Framework for Long Range Connectivity and Secure Data Transmission Leveraging LoRa
-    and ASCON Encryption.&rdquo;
-    <span class="v">IEEE World AI IoT Congress, 2023.</span><span class="tag">Best Paper Award</span></div>
+  <div class="pub"><div class="yr">2025</div><div>
+    <p class="pt">A Multi-Tiered Autotuner for Portable Heterogeneous-Compute Interfaces</p>
+    <div class="au">S. A. Zisan, <b>M. Nooruddin</b>, A. Qasem</div>
+    <div class="ven">IEEE COMPSAC</div>
+  </div></div>
 
-  <div class="pub">A. S. B. Habib, K. T. Islam, M. M. H. Pranto, <strong>M. Nooruddin</strong>.
-    &ldquo;Breast Cancer Classification Using Ensemble Hard Voting with Random Under-Sampling.&rdquo;
-    <span class="v">IEEE ICECE, 2020.</span></div>
+  <div class="pub"><div class="yr">2023</div><div>
+    <p class="pt">An Advanced IoT Framework for Long Range Connectivity and Secure Data
+      Transmission Leveraging LoRa and ASCON Encryption</p>
+    <div class="au"><b>M. Nooruddin</b>, D. Valles</div>
+    <div class="ven">IEEE World AI IoT Congress<span class="chip win">Best paper</span></div>
+  </div></div>
 
-  <div class="pub">A. S. Sajib, <strong>M. Nooruddin</strong>, K. T. Islam, S. Roy.
-    &ldquo;Finite Element Analysis of Thrombosis Considering Windkessel Effect.&rdquo;
-    <span class="v">IEEE EICT, 2019.</span></div>
+  <div class="pub"><div class="yr">2020</div><div>
+    <p class="pt">Breast Cancer Classification Using Ensemble Hard Voting with Random
+      Under-Sampling</p>
+    <div class="au">A. S. B. Habib, K. T. Islam, M. M. H. Pranto, <b>M. Nooruddin</b></div>
+    <div class="ven">IEEE ICECE</div>
+  </div></div>
 
-  <div class="pub">P. Deb, <strong>M. Nooruddin</strong>, M. S. Badsha.
-    &ldquo;Detection of Abnormal Electrocardiogram (ECG) Using Wavelet Decomposition and Support Vector
-    Machine.&rdquo; <span class="v">IEEE ICASERT, 2019.</span></div>
+  <div class="pub"><div class="yr">2019</div><div>
+    <p class="pt">Finite Element Analysis of Thrombosis Considering Windkessel Effect</p>
+    <div class="au">A. S. Sajib, <b>M. Nooruddin</b>, K. T. Islam, S. Roy</div>
+    <div class="ven">IEEE EICT</div>
+  </div></div>
 
-  <div class="pub"><strong>M. Nooruddin</strong>, M. Rahman.
-    &ldquo;Improved 3D Reconstruction for Images having Moving Object using Semantic Image Segmentation and
-    Binary Masking.&rdquo; <span class="v">IEEE iCEEiCT, 2018.</span></div>
+  <div class="pub"><div class="yr">2019</div><div>
+    <p class="pt">Detection of Abnormal Electrocardiogram Using Wavelet Decomposition and
+      Support Vector Machine</p>
+    <div class="au">P. Deb, <b>M. Nooruddin</b>, M. S. Badsha</div>
+    <div class="ven">IEEE ICASERT</div>
+  </div></div>
 
-  <h2 style="margin-top:30px">Awards and Certification</h2>
-  <div class="ed"><div>Best Paper Award, IoT Security &mdash; IEEE World AI IoT Congress</div><span>2023</span></div>
-  <div class="ed"><div>Thesis Research Support Fellowship, Graduate College, Texas State</div><span>2022</span></div>
-  <div class="ed"><div>Graduate College Scholarship, Texas State</div><span>2021</span></div>
-  <div class="ed"><div>NVIDIA-Certified Associate: AI Infrastructure and Operations (NCA-AIIO)</div><span>2026</span></div>
-</div></section>
+  <div class="pub"><div class="yr">2018</div><div>
+    <p class="pt">Improved 3D Reconstruction for Images having Moving Object using Semantic
+      Image Segmentation and Binary Masking</p>
+    <div class="au"><b>M. Nooruddin</b>, M. Rahman</div>
+    <div class="ven">IEEE iCEEiCT</div>
+  </div></div>
 
-<section id="experience"><div class="wrap">
+  <h2 style="margin-top:40px">Awards and certification</h2>
+  <div class="row"><div>NVIDIA-Certified Associate, AI Infrastructure and Operations</div><span>2026</span></div>
+  <div class="row"><div>Best paper award, IoT security, IEEE World AI IoT Congress</div><span>2023</span></div>
+  <div class="row"><div>Thesis Research Support Fellowship, Graduate College, Texas State</div><span>2022</span></div>
+  <div class="row"><div>Graduate College Scholarship, Texas State</div><span>2021</span></div>
+</section>
+
+<section id="experience">
   <h2>Experience</h2>
 
-  <div class="item">
+  <div class="card">
     <h3>Technology Innovation Summer Consultant</h3>
-    <p class="meta">Accenture, Next Gen Compute &middot; Summer 2026</p>
-    <p>Built an on-premises retrieval-augmented question answering system on a cluster of NVIDIA Blackwell
-    GPUs, covering document ingestion, hybrid retrieval and grounded answering with citations. Separately,
-    quantized a 32B language model to NVFP4 and measured around 2.5&times; the throughput on the same card with
-    accuracy unchanged within benchmark noise.</p>
+    <p class="note">Accenture, Next Gen Compute &middot; Summer 2026</p>
+    <p>Built an on-premises retrieval system on a cluster of NVIDIA Blackwell GPUs,
+    covering document ingestion, hybrid retrieval and answers restricted to the retrieved
+    text. Separately, I quantized a 32B language model to NVFP4 and measured about 2.5
+    times the throughput on the same card, with accuracy unchanged within benchmark
+    noise.</p>
   </div>
 
-  <div class="item">
+  <div class="card">
     <h3>Doctoral Research Assistant</h3>
-    <p class="meta">Department of Computer Science, Texas State University &middot; Jun 2023 &ndash; Present</p>
-    <p>GPU performance research on irregular graph workloads, covering CUDA kernel optimization and GPU
-    partitioning, as described above.</p>
+    <p class="note">Department of Computer Science, Texas State University &middot; June 2023 to present</p>
+    <p>GPU sharing and kernel optimization for irregular graph workloads, described
+    above.</p>
   </div>
 
-  <div class="item">
+  <div class="card">
     <h3>Graduate Instructional Assistant</h3>
-    <p class="meta">Ingram School of Engineering, Texas State University &middot; Sep 2021 &ndash; May 2023</p>
-    <p>Ran laboratory sections, supported students with Linux and C/C++ environments, and taught parallel
-    computing fundamentals.</p>
+    <p class="note">Ingram School of Engineering, Texas State University &middot; September 2021 to May 2023</p>
+    <p>Ran laboratory sections, helped students with Linux and C/C++ environments, and
+    taught parallel computing fundamentals.</p>
   </div>
 
-  <div class="item">
+  <div class="card">
     <h3>IoT Specialist</h3>
-    <p class="meta">Robi Axiata Limited, Dhaka, Bangladesh &middot; Dec 2020 &ndash; Jul 2021</p>
-    <p>Designed and launched a multi-sensor smart-elevator prototype on an ATmega8 microcontroller with cloud
-    telemetry, deployed for occupancy safety during COVID-19.</p>
+    <p class="note">Robi Axiata Limited, Dhaka &middot; December 2020 to July 2021</p>
+    <p>Designed and launched a multi-sensor smart-elevator prototype on an ATmega8
+    microcontroller with cloud telemetry, deployed for occupancy safety during
+    COVID-19.</p>
   </div>
-</div></section>
+</section>
 
-<section id="projects"><div class="wrap">
+<section id="projects">
   <h2>Projects</h2>
 
-  <div class="item">
-    <h3>Parallel algorithms on GPU clusters</h3>
-    <p>Converted serial algorithms into MPI, pthreads, OpenMP, CUDA, multi-GPU and hybrid implementations, and
-    measured them on GPU cluster nodes through Slurm. A persistent-thread minimum reduction reached about
-    24.6&times; over a single-threaded CPU baseline, and a GPU counting sort ran roughly 102&times; to 136&times;
-    faster than <code>std::sort</code> across the sizes tested.</p>
+  <div class="card">
+    <h3>Parallel algorithms across MPI, OpenMP, CUDA and HIP</h3>
+    <p>Rewrote serial algorithms as MPI, pthreads, OpenMP, CUDA, multi-GPU and hybrid
+    implementations, then measured them on GPU cluster nodes through Slurm. A
+    persistent-thread minimum reduction reached about 24.6 times a single-threaded CPU
+    baseline, and a GPU counting sort ran roughly 102 to 136 times faster than
+    <code>std::sort</code> across the sizes tested.</p>
   </div>
 
-  <div class="item">
+  <div class="card">
     <h3>Pop-CCL: popularity-adaptive long-tail recommendation</h3>
-    <p>Extended the SimpleX collaborative filtering model with a popularity-adaptive Cosine Contrastive Loss,
-    raising Recall@20 for tail items by up to 56% on Yelp18, Amazon-Books and Gowalla with minimal change to
-    the implementation.</p>
+    <p>Extended the SimpleX collaborative filtering model with a popularity-adaptive
+    cosine contrastive loss. Recall@20 for tail items rose by up to 56% on Yelp18,
+    Amazon-Books and Gowalla, with little change to the implementation.</p>
   </div>
 
-  <div class="item">
-    <h3>Privacy-preserving federated learning</h3>
-    <p>Implemented federated learning with Paillier homomorphic encryption on CIFAR-100 using the AIJack
-    framework, keeping client updates encrypted through aggregation.</p>
+  <div class="card">
+    <h3>Federated learning under homomorphic encryption</h3>
+    <p>Implemented federated learning with Paillier encryption on CIFAR-100 using the
+    AIJack framework, so client updates stay encrypted through aggregation.</p>
   </div>
 
-  <div class="item">
+  <div class="card">
     <h3>Parallel dead-block analysis for C compilers</h3>
-    <p>Sped up dead-block detection with dynamic load balancing and parallel execution across GCC and LLVM
-    builds at varied optimization levels, using Csmith for code generation and program markers for
-    instrumentation.</p>
+    <p>Sped up dead-block detection with dynamic load balancing and parallel execution
+    across GCC and LLVM builds at several optimization levels, using Csmith to generate
+    the code and program markers to instrument it.</p>
   </div>
-</div></section>
+</section>
 
-<section><div class="wrap">
+<section id="education">
   <h2>Education</h2>
-  <div class="ed"><div><strong>PhD, Computer Science</strong><br>Texas State University</div><span>Expected 2027</span></div>
-  <div class="ed"><div><strong>MS, Electrical Engineering</strong><br>Texas State University<br>
-    <span style="font-size:14.5px">Thesis: ASCON and ECDH lightweight cryptography on microcontrollers over LoRa</span>
-    </div><span>2023</span></div>
-  <div class="ed"><div><strong>BSc, Electronics and Communication Engineering</strong><br>
-    Khulna University of Engineering &amp; Technology</div><span>2018</span></div>
-</div></section>
+  <div class="row"><div><span class="deg">PhD, Computer Science</span>
+    <span class="sm">Texas State University</span></div><span>expected 2027</span></div>
+  <div class="row"><div><span class="deg">MS, Electrical Engineering</span>
+    <span class="sm">Texas State University. Thesis on ASCON and ECDH lightweight
+    cryptography for microcontrollers communicating over LoRa.</span></div><span>2023</span></div>
+  <div class="row"><div><span class="deg">BSc, Electronics and Communication Engineering</span>
+    <span class="sm">Khulna University of Engineering and Technology</span></div><span>2018</span></div>
+</section>
 
-<footer><div class="wrap">
-  <p style="margin:0">Mohammad Nooruddin &middot; San Marcos, TX &middot;
-  <a href="mailto:m.nooruddin58@txstate.edu">m.nooruddin58@txstate.edu</a></p>
-</div></footer>
+<footer>
+  <span>San Marcos, Texas &middot;
+    <a href="mailto:m.nooruddin58@txstate.edu">m.nooruddin58@txstate.edu</a></span>
+  <span>Updated November 2026</span>
+</footer>
 
+</main>
+</div>
 </body>
 </html>
